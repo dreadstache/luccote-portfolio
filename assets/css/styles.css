@@ -97,32 +97,60 @@ h3 { font-size: 1.45rem; }
 .signal-list li::before { content: "✦"; margin-right: .45rem; color: var(--accent-2); }
 
 .hero-system {
-  position: relative; min-height: 500px; border: 1px solid var(--line);
-  border-radius: 50%; background:
-    radial-gradient(circle, rgba(140,227,212,.12), transparent 40%),
-    var(--bg-soft);
-  box-shadow: var(--shadow);
+  position: relative; min-height: 500px; overflow: hidden; isolation: isolate;
+  border: 1px solid var(--line); border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(140,227,212,.12), transparent 16%),
+    radial-gradient(circle at 23% 24%, rgba(168,146,255,.09), transparent 32%),
+    #0c1019;
+  box-shadow: var(--shadow), inset 0 0 70px rgba(0,0,0,.48);
 }
 .hero-system::before, .hero-system::after {
-  content: ""; position: absolute; inset: 12%; border: 1px solid var(--line); border-radius: 50%;
+  content: ""; position: absolute; inset: 13% 7%; z-index: -1;
+  border: 1px solid rgba(255,255,255,.12); border-radius: 50%;
+  transform: rotate(-12deg);
 }
-.hero-system::after { inset: 28%; }
+.hero-system::after { inset: 28% 19%; transform: rotate(18deg); border-color: rgba(140,227,212,.16); }
+.system-starfield {
+  position: absolute; inset: 0; z-index: -2; opacity: .72;
+  background-image:
+    radial-gradient(circle at 18% 20%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 74% 16%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 86% 63%, #8ce3d4 0 1px, transparent 1.6px),
+    radial-gradient(circle at 28% 77%, #a892ff 0 1px, transparent 1.6px),
+    radial-gradient(circle at 64% 84%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 10% 52%, #fff 0 1px, transparent 1.5px);
+}
 .system-core {
   position: absolute; inset: 50% auto auto 50%; transform: translate(-50%,-50%);
-  display: grid; place-items: center; width: 6.5rem; height: 6.5rem;
-  border-radius: 50%; background: var(--text); color: var(--bg); font-weight: 900; letter-spacing: .18em;
+  display: grid; place-items: center; align-content: center; width: 7rem; height: 7rem;
+  border-radius: 50%; color: #09100f; background: #f4fff9;
+  box-shadow: 0 0 24px rgba(140,227,212,.65), 0 0 80px rgba(140,227,212,.28);
+  font-weight: 900; letter-spacing: .18em;
 }
+.system-core span, .system-core small { display: block; }
+.system-core small { margin-top: .2rem; font-size: .48rem; letter-spacing: .13em; text-transform: uppercase; opacity: .58; }
 .orbit {
-  position: absolute; border: 1px solid var(--line); border-radius: 999px;
-  padding: .55rem .85rem; color: var(--text); background: var(--panel); cursor: pointer;
+  --planet: var(--accent); --planet-size: .85rem;
+  position: absolute; display: inline-flex; align-items: center; gap: .55rem;
+  border: 1px solid var(--line); border-radius: 999px; padding: .48rem .75rem .48rem .5rem;
+  color: var(--text); background: rgba(23,28,40,.92); box-shadow: 0 8px 24px rgba(0,0,0,.3);
+  cursor: pointer; transition: transform .2s ease, border-color .2s ease, background .2s ease;
 }
-.orbit:hover { border-color: var(--accent); transform: translateY(-2px); }
-.orbit-1 { top: 10%; left: 40%; }
-.orbit-2 { top: 28%; right: 4%; }
-.orbit-3 { bottom: 24%; right: 2%; }
-.orbit-4 { bottom: 8%; left: 35%; }
-.orbit-5 { bottom: 25%; left: 0; }
-.orbit-6 { top: 26%; left: 3%; }
+.orbit::before {
+  content: ""; flex: none; width: var(--planet-size); height: var(--planet-size); border-radius: 50%;
+  background: var(--planet); box-shadow: inset -.2rem -.18rem .3rem rgba(0,0,0,.28), 0 0 12px color-mix(in srgb, var(--planet) 65%, transparent);
+}
+.orbit:hover, .orbit:focus-visible { border-color: var(--planet); transform: translateY(-3px) scale(1.03); background: #202738; outline: none; }
+.orbit-1 { --planet: #8ce3d4; --planet-size: 1rem; top: 9%; left: 40%; animation: planet-drift 7s ease-in-out infinite; }
+.orbit-2 { --planet: #75a7ff; --planet-size: .72rem; top: 27%; right: 3%; animation: planet-drift 8s ease-in-out -2s infinite; }
+.orbit-3 { --planet: #d6a5ff; --planet-size: 1.1rem; bottom: 22%; right: 1%; animation: planet-drift 9s ease-in-out -4s infinite; }
+.orbit-4 { --planet: #ffbd73; --planet-size: .8rem; bottom: 7%; left: 35%; animation: planet-drift 7.5s ease-in-out -1s infinite; }
+.orbit-5 { --planet: #73d7ff; --planet-size: .9rem; bottom: 24%; left: 0; animation: planet-drift 8.5s ease-in-out -5s infinite; }
+.orbit-6 { --planet: #f0f4ff; --planet-size: .62rem; top: 25%; left: 2%; animation: planet-drift 10s ease-in-out -3s infinite; }
+@keyframes planet-drift { 0%, 100% { margin-top: 0; } 50% { margin-top: -6px; } }
+
+@media (prefers-reduced-motion: reduce) { .orbit { animation: none; } }
 
 .section-heading { display: flex; justify-content: space-between; gap: 2rem; align-items: end; margin-bottom: 2.4rem; }
 .filters { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: flex-end; }
