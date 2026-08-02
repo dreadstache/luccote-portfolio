@@ -97,7 +97,7 @@ h3 { font-size: 1.45rem; }
 .signal-list li::before { content: "✦"; margin-right: .45rem; color: var(--accent-2); }
 
 .hero-system {
-  position: relative; min-height: 500px; overflow: hidden; isolation: isolate;
+  position: relative; min-height: 500px; overflow: visible; isolation: isolate;
   border: 1px solid var(--line); border-radius: 50%;
   background:
     radial-gradient(circle at 50% 50%, rgba(140,227,212,.12), transparent 16%),
@@ -112,7 +112,7 @@ h3 { font-size: 1.45rem; }
 }
 .hero-system::after { inset: 28% 19%; transform: rotate(18deg); border-color: rgba(140,227,212,.16); }
 .system-starfield {
-  position: absolute; inset: 0; z-index: -2; opacity: .72;
+  position: absolute; inset: 0; z-index: -2; opacity: .72; overflow: hidden; border-radius: 50%;
   background-image:
     radial-gradient(circle at 18% 20%, #fff 0 1px, transparent 1.5px),
     radial-gradient(circle at 74% 16%, #fff 0 1px, transparent 1.5px),
@@ -133,8 +133,10 @@ h3 { font-size: 1.45rem; }
 .orbit {
   --planet: var(--accent); --planet-size: .85rem;
   position: absolute; display: inline-flex; align-items: center; gap: .55rem;
-  border: 1px solid var(--line); border-radius: 999px; padding: .48rem .75rem .48rem .5rem;
-  color: var(--text); background: rgba(23,28,40,.92); box-shadow: 0 8px 24px rgba(0,0,0,.3);
+  border: 1px solid color-mix(in srgb, var(--planet) 42%, var(--line)); border-radius: 999px;
+  padding: .58rem .9rem .58rem .62rem; color: #fff; background: rgba(27,34,49,.97);
+  box-shadow: 0 10px 28px rgba(0,0,0,.42), 0 0 18px color-mix(in srgb, var(--planet) 12%, transparent);
+  font-size: .86rem; font-weight: 800; letter-spacing: .01em;
   cursor: pointer; transition: transform .2s ease, border-color .2s ease, background .2s ease;
 }
 .orbit::before {
@@ -143,11 +145,11 @@ h3 { font-size: 1.45rem; }
 }
 .orbit:hover, .orbit:focus-visible { border-color: var(--planet); transform: translateY(-3px) scale(1.03); background: #202738; outline: none; }
 .orbit-1 { --planet: #8ce3d4; --planet-size: 1rem; top: 9%; left: 40%; animation: planet-drift 7s ease-in-out infinite; }
-.orbit-2 { --planet: #75a7ff; --planet-size: .72rem; top: 27%; right: 3%; animation: planet-drift 8s ease-in-out -2s infinite; }
-.orbit-3 { --planet: #d6a5ff; --planet-size: 1.1rem; bottom: 22%; right: 1%; animation: planet-drift 9s ease-in-out -4s infinite; }
+.orbit-2 { --planet: #75a7ff; --planet-size: .72rem; top: 27%; right: 0; animation: planet-drift 8s ease-in-out -2s infinite; }
+.orbit-3 { --planet: #d6a5ff; --planet-size: 1.1rem; bottom: 22%; right: -1.5rem; animation: planet-drift 9s ease-in-out -4s infinite; }
 .orbit-4 { --planet: #ffbd73; --planet-size: .8rem; bottom: 7%; left: 35%; animation: planet-drift 7.5s ease-in-out -1s infinite; }
-.orbit-5 { --planet: #73d7ff; --planet-size: .9rem; bottom: 24%; left: 0; animation: planet-drift 8.5s ease-in-out -5s infinite; }
-.orbit-6 { --planet: #f0f4ff; --planet-size: .62rem; top: 25%; left: 2%; animation: planet-drift 10s ease-in-out -3s infinite; }
+.orbit-5 { --planet: #73d7ff; --planet-size: .9rem; bottom: 24%; left: -1.5rem; animation: planet-drift 8.5s ease-in-out -5s infinite; }
+.orbit-6 { --planet: #f0f4ff; --planet-size: .62rem; top: 25%; left: 0; animation: planet-drift 10s ease-in-out -3s infinite; }
 @keyframes planet-drift { 0%, 100% { margin-top: 0; } 50% { margin-top: -6px; } }
 
 @media (prefers-reduced-motion: reduce) { .orbit { animation: none; } }
@@ -223,6 +225,8 @@ footer {
   nav a { display: none; }
   .hero { grid-template-columns: 1fr; padding-top: 3rem; }
   .hero-system { min-height: 420px; }
+  .orbit-3 { right: -.5rem; }
+  .orbit-5 { left: -.5rem; }
   .section-heading, .contact-panel { align-items: flex-start; flex-direction: column; }
   .project-grid, .capability-grid, .resume-grid, .split, .career-timeline { grid-template-columns: 1fr; }
   .filters { justify-content: flex-start; }
@@ -233,6 +237,8 @@ footer {
   .section { width: min(100% - 1.4rem, var(--max)); padding: 4.5rem 0; }
   .hero-system { min-height: 350px; }
   .orbit { font-size: .72rem; }
+  .orbit-2, .orbit-3 { right: -.25rem; }
+  .orbit-5, .orbit-6 { left: -.25rem; }
   .project-card, .resume-card { padding: 1.4rem; }
   .career-section::before { inset-inline: -.35rem; }
   footer { flex-direction: column; }
