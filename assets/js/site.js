@@ -18,7 +18,7 @@ themeButton?.addEventListener("click", () => {
 const filterButtons = document.querySelectorAll("[data-filter]");
 const projectCards = document.querySelectorAll(".project-card");
 
-function applyFilter(filter) {
+function applyFilter(filter, shouldScroll = true) {
   document.querySelectorAll(".filter").forEach(button => {
     button.classList.toggle("active", button.dataset.filter === filter);
   });
@@ -28,11 +28,28 @@ function applyFilter(filter) {
     card.classList.toggle("hidden", filter !== "all" && !categories.includes(filter));
   });
 
-  document.querySelector("#work")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (shouldScroll) document.querySelector("#work")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 filterButtons.forEach(button => {
-  button.addEventListener("click", () => applyFilter(button.dataset.filter));
+  if (button.classList.contains("orbit")) {
+    const satellites = document.createElement("span");
+    satellites.className = "satellites";
+    satellites.setAttribute("aria-hidden", "true");
+    button.dataset.satellites.split("|").slice(0, 3).forEach((label, index) => {
+      const satellite = appendText(satellites, "span", label, `satellite satellite-${index + 1}`);
+      satellite.style.setProperty("--satellite-index", index);
+    });
+    button.append(satellites);
+    button.addEventListener("click", () => {
+      const next = button.getAttribute("aria-expanded") !== "true";
+      document.querySelectorAll(".orbit[aria-expanded='true']").forEach(open => open.setAttribute("aria-expanded", "false"));
+      button.setAttribute("aria-expanded", String(next));
+      applyFilter(button.dataset.filter, false);
+    });
+  } else {
+    button.addEventListener("click", () => applyFilter(button.dataset.filter));
+  }
 });
 
 document.querySelector("#year").textContent = new Date().getFullYear();

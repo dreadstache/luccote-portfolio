@@ -143,6 +143,22 @@ h3 { font-size: 1.45rem; }
   content: ""; flex: none; width: var(--planet-size); height: var(--planet-size); border-radius: 50%;
   background: var(--planet); box-shadow: inset -.2rem -.18rem .3rem rgba(0,0,0,.28), 0 0 12px color-mix(in srgb, var(--planet) 65%, transparent);
 }
+.satellites { position: absolute; inset: 50% auto auto 50%; width: 1px; height: 1px; pointer-events: none; }
+.satellite {
+  position: absolute; left: 0; top: 0; z-index: -1; min-width: max-content;
+  padding: .34rem .58rem; border: 1px solid color-mix(in srgb, var(--planet) 38%, var(--line));
+  border-radius: 999px; color: var(--text); background: rgba(14,19,29,.96);
+  box-shadow: 0 7px 20px rgba(0,0,0,.38); font-size: .68rem; font-weight: 750;
+  opacity: 0; transform: translate(-50%, -50%) scale(.45); transition: opacity .18s ease, transform .25s cubic-bezier(.2,.8,.2,1);
+}
+.satellite-1 { --satellite-x: -4.5rem; --satellite-y: -3.4rem; }
+.satellite-2 { --satellite-x: .3rem; --satellite-y: -4.8rem; }
+.satellite-3 { --satellite-x: 4.8rem; --satellite-y: -2.8rem; }
+.orbit:hover .satellite, .orbit:focus-visible .satellite, .orbit[aria-expanded="true"] .satellite {
+  opacity: 1; transform: translate(calc(-50% + var(--satellite-x)), calc(-50% + var(--satellite-y))) scale(1);
+}
+.orbit:hover .satellite-2, .orbit:focus-visible .satellite-2, .orbit[aria-expanded="true"] .satellite-2 { transition-delay: .035s; }
+.orbit:hover .satellite-3, .orbit:focus-visible .satellite-3, .orbit[aria-expanded="true"] .satellite-3 { transition-delay: .07s; }
 .orbit:hover, .orbit:focus-visible { border-color: var(--planet); transform: translateY(-3px) scale(1.03); background: #202738; outline: none; }
 .orbit-1 { --planet: #8ce3d4; --planet-size: 1rem; top: 9%; left: 40%; animation: planet-drift 7s ease-in-out infinite; }
 .orbit-2 { --planet: #75a7ff; --planet-size: .72rem; top: 27%; right: 0; animation: planet-drift 8s ease-in-out -2s infinite; }
@@ -152,7 +168,7 @@ h3 { font-size: 1.45rem; }
 .orbit-6 { --planet: #f0f4ff; --planet-size: .62rem; top: 25%; left: 0; animation: planet-drift 10s ease-in-out -3s infinite; }
 @keyframes planet-drift { 0%, 100% { margin-top: 0; } 50% { margin-top: -6px; } }
 
-@media (prefers-reduced-motion: reduce) { .orbit { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .orbit { animation: none; } .satellite { transition: none; } }
 
 .section-heading { display: flex; justify-content: space-between; gap: 2rem; align-items: end; margin-bottom: 2.4rem; }
 .filters { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: flex-end; }
@@ -237,6 +253,10 @@ footer {
   .section { width: min(100% - 1.4rem, var(--max)); padding: 4.5rem 0; }
   .hero-system { min-height: 350px; }
   .orbit { font-size: .72rem; }
+  .satellite { font-size: .6rem; }
+  .satellite-1 { --satellite-x: -3.4rem; --satellite-y: -3rem; }
+  .satellite-2 { --satellite-x: 0; --satellite-y: -4rem; }
+  .satellite-3 { --satellite-x: 3.4rem; --satellite-y: -2.7rem; }
   .orbit-2, .orbit-3 { right: -.25rem; }
   .orbit-5, .orbit-6 { left: -.25rem; }
   .project-card, .resume-card { padding: 1.4rem; }
