@@ -126,10 +126,9 @@ h3 { font-size: 1.45rem; }
   display: grid; place-items: center; align-content: center; width: 7rem; height: 7rem;
   border-radius: 50%; color: #09100f; background: #f4fff9;
   box-shadow: 0 0 24px rgba(140,227,212,.65), 0 0 80px rgba(140,227,212,.28);
-  font-weight: 900; letter-spacing: .18em;
+  font-size: .9rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase;
 }
-.system-core span, .system-core small { display: block; }
-.system-core small { margin-top: .2rem; font-size: .48rem; letter-spacing: .13em; text-transform: uppercase; opacity: .58; }
+.system-core span { display: block; }
 .orbit {
   --planet: var(--accent); --planet-size: .85rem;
   position: absolute; display: inline-flex; align-items: center; gap: .55rem;
