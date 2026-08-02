@@ -36,3 +36,60 @@ filterButtons.forEach(button => {
 });
 
 document.querySelector("#year").textContent = new Date().getFullYear();
+
+const careerSource = "https://dreadstache.github.io/careeros/generated/resume/resume.json";
+
+function appendText(parent, tag, value, className) {
+  const element = document.createElement(tag);
+  element.textContent = value;
+  if (className) element.className = className;
+  parent.append(element);
+  return element;
+}
+
+function formatPeriod(record) {
+  const start = record.start_date || "";
+  const end = record.end_date || "Present";
+  return start ? `${start} — ${end}` : end;
+}
+
+function renderCareer(data) {
+  const summary = document.querySelector("#career-summary");
+  const experienceRoot = document.querySelector("#career-experience");
+  const skillsRoot = document.querySelector("#career-skills");
+  if (!summary || !experienceRoot || !skillsRoot) return;
+
+  summary.textContent = data.basics?.summary || "A multidisciplinary career across systems, software, art, and analytics.";
+  const activeExperience = (data.experience || []).filter(record => record.status !== "archived");
+  activeExperience
+    .sort((left, right) => String(right.start_date || "").localeCompare(String(left.start_date || "")))
+    .slice(0, 6)
+    .forEach(record => {
+      const card = document.createElement("article");
+      card.className = "career-role";
+      const period = appendText(card, "p", formatPeriod(record), "career-period");
+      period.setAttribute("aria-label", `Period: ${period.textContent}`);
+      appendText(card, "h3", record.position || "Role");
+      appendText(card, "p", record.organization || "", "career-organization");
+      if (record.summary) appendText(card, "p", record.summary, "career-role-summary");
+      experienceRoot.append(card);
+    });
+
+  (data.skills || [])
+    .filter(group => group.status !== "archived")
+    .flatMap(group => group.keywords || [])
+    .filter((skill, index, all) => all.indexOf(skill) === index)
+    .forEach(skill => appendText(skillsRoot, "span", skill));
+}
+
+fetch(careerSource, { headers: { Accept: "application/json" } })
+  .then(response => {
+    if (!response.ok) throw new Error("CareerOS request failed");
+    return response.json();
+  })
+  .then(renderCareer)
+  .catch(() => {
+    document.querySelector("#career-summary")?.setAttribute("hidden", "");
+    const fallback = document.querySelector("#career-fallback");
+    if (fallback) fallback.hidden = false;
+  });
