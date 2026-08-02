@@ -22,6 +22,7 @@
 
     <nav aria-label="Primary navigation">
       <a href="#work">Work</a>
+      <a href="#career">Career</a>
       <a href="#capabilities">Capabilities</a>
       <a href="#resumes">Résumés</a>
       <a href="#about">About</a>
@@ -53,15 +54,37 @@
         </ul>
       </div>
 
-      <div class="hero-system" aria-label="Interactive career domains">
-        <div class="system-core">LUC</div>
-        <button class="orbit orbit-1" data-filter="analytics">Analytics</button>
-        <button class="orbit orbit-2" data-filter="gis">GIS</button>
-        <button class="orbit orbit-3" data-filter="technical-art">Technical Art</button>
-        <button class="orbit orbit-4" data-filter="software">Software</button>
-        <button class="orbit orbit-5" data-filter="simulation">Simulation</button>
-        <button class="orbit orbit-6" data-filter="all">Everything</button>
+      <div class="hero-system" aria-label="Interactive career domains shown as a solar system">
+        <div class="system-starfield" aria-hidden="true"></div>
+        <div class="system-core"><span>Luc Cote</span></div>
+        <button class="orbit orbit-1" data-filter="analytics" data-satellites="SQL|Power BI|Reporting" aria-expanded="false">Analytics</button>
+        <button class="orbit orbit-2" data-filter="gis" data-satellites="ArcGIS|CityEngine|Spatial Data" aria-expanded="false">GIS</button>
+        <button class="orbit orbit-3" data-filter="technical-art" data-satellites="Maya|Character Art|Pipelines" aria-expanded="false">Technical Art</button>
+        <button class="orbit orbit-4" data-filter="software" data-satellites="Python|React|C#" aria-expanded="false">Software</button>
+        <button class="orbit orbit-5" data-filter="simulation" data-satellites="Unity|VR|Optimization" aria-expanded="false">Simulation</button>
+        <button class="orbit orbit-6" data-filter="all" data-satellites="Systems|Automation|Visualization" aria-expanded="false">Everything</button>
       </div>
+    </section>
+
+    <section id="career" class="section career-section" aria-labelledby="career-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Live from CareerOS</p>
+          <h2 id="career-title">A career record that stays current.</h2>
+        </div>
+        <a class="source-status" href="https://dreadstache.github.io/careeros/generated/resume/index.html">
+          <span aria-hidden="true"></span> View source résumé
+        </a>
+      </div>
+      <p id="career-summary" class="career-summary">Loading the latest verified career snapshot…</p>
+      <div id="career-experience" class="career-timeline" aria-live="polite"></div>
+      <div class="career-skills-block">
+        <p class="card-kicker">Current capability index</p>
+        <div id="career-skills" class="career-skills" aria-live="polite"></div>
+      </div>
+      <p id="career-fallback" class="career-fallback" hidden>
+        The live career record is temporarily unavailable. The portfolio case studies remain available below.
+      </p>
     </section>
 
     <section id="work" class="section">
