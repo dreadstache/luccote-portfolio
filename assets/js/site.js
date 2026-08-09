@@ -55,6 +55,16 @@ filterButtons.forEach(button => {
 document.querySelector("#year").textContent = new Date().getFullYear();
 
 const careerSource = "https://dreadstache.github.io/careeros/generated/resume/resume.json";
+const resumeTrackSource = "https://dreadstache.github.io/careeros/generated/resume/tracks.json";
+const resumeTrackLabels = {
+  analytics: "Primary Track",
+  gis: "Spatial Track",
+  "game-development": "Game Track",
+  "technical-art": "Art & Pipeline Track",
+  "software-systems": "Systems Track",
+  "music-production": "Music Track",
+  "web-development": "Web Track",
+};
 
 function appendText(parent, tag, value, className) {
   const element = document.createElement(tag);
@@ -99,6 +109,27 @@ function renderCareer(data) {
     .forEach(skill => appendText(skillsRoot, "span", skill));
 }
 
+function renderResumeTracks(manifest) {
+  const resumeGrid = document.querySelector(".resume-grid");
+  if (!resumeGrid || !Array.isArray(manifest.tracks) || manifest.tracks.length === 0) return;
+
+  const cards = manifest.tracks.map(track => {
+    if (!track.slug || !track.title) return null;
+    const card = document.createElement("article");
+    card.className = `resume-card${track.slug === "game-development" ? " featured-resume" : ""}`;
+    const content = document.createElement("div");
+    appendText(content, "p", resumeTrackLabels[track.slug] || "Focused Track", "card-kicker");
+    appendText(content, "h3", track.title.replace(/\s+R[eé]sum[eé]$/i, ""));
+    appendText(content, "p", track.summary || track.headline || "A focused view of verified career experience.");
+    const link = appendText(card, "a", "View live résumé", "button primary");
+    link.href = `https://dreadstache.github.io/careeros/generated/resume/${encodeURIComponent(track.slug)}/index.html`;
+    card.prepend(content);
+    return card;
+  }).filter(Boolean);
+
+  if (cards.length > 0) resumeGrid.replaceChildren(...cards);
+}
+
 fetch(careerSource, { headers: { Accept: "application/json" } })
   .then(response => {
     if (!response.ok) throw new Error("CareerOS request failed");
@@ -110,3 +141,11 @@ fetch(careerSource, { headers: { Accept: "application/json" } })
     const fallback = document.querySelector("#career-fallback");
     if (fallback) fallback.hidden = false;
   });
+
+fetch(resumeTrackSource, { cache: "no-store", headers: { Accept: "application/json" } })
+  .then(response => {
+    if (!response.ok) throw new Error("CareerOS track request failed");
+    return response.json();
+  })
+  .then(renderResumeTracks)
+  .catch(() => undefined);
