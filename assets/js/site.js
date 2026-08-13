@@ -42,6 +42,10 @@ filterButtons.forEach(button => {
     });
     button.append(satellites);
     button.addEventListener("click", () => {
+      if (button.dataset.link) {
+        window.location.href = button.dataset.link;
+        return;
+      }
       const next = button.getAttribute("aria-expanded") !== "true";
       document.querySelectorAll(".orbit[aria-expanded='true']").forEach(open => open.setAttribute("aria-expanded", "false"));
       button.setAttribute("aria-expanded", String(next));
@@ -59,7 +63,7 @@ const resumeTrackSource = "https://dreadstache.github.io/careeros/generated/resu
 const ecosystemSource = "https://dreadstache.github.io/careeros/generated/ecosystem.json";
 const fallbackDestinations = [
   { id: "tech", label: "Tech & Systems", description: "Analytics, GIS, software, and automation.", url: "https://dreadstache.github.io/luccote-portfolio/", status: "live" },
-  { id: "three-d", label: "Games, Film & 3D", description: "Interactive models and technical art.", url: "https://vanta-model-atelier.dreadstache.chatgpt.site/", status: "live" },
+  { id: "three-d", label: "Games, Film & 3D", description: "Interactive models and technical art.", url: "https://dreadstache.github.io/dreadstache-portfolio/", status: "live" },
   { id: "music", label: "Music", description: "Dreadstache releases and production.", url: "https://dreadstache.com/", status: "live" },
   { id: "resumes", label: "Résumé Library", description: "Focused, verified career stories.", url: "https://dreadstache.github.io/careeros/generated/resume/", status: "live" },
 ];
