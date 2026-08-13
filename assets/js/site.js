@@ -56,6 +56,13 @@ document.querySelector("#year").textContent = new Date().getFullYear();
 
 const careerSource = "https://dreadstache.github.io/careeros/generated/resume/resume.json";
 const resumeTrackSource = "https://dreadstache.github.io/careeros/generated/resume/tracks.json";
+const ecosystemSource = "https://dreadstache.github.io/careeros/generated/ecosystem.json";
+const fallbackDestinations = [
+  { id: "tech", label: "Tech & Systems", description: "Analytics, GIS, software, and automation.", url: "https://dreadstache.github.io/luccote-portfolio/", status: "live" },
+  { id: "three-d", label: "Games, Film & 3D", description: "Interactive models and technical art.", url: "https://vanta-model-atelier.dreadstache.chatgpt.site/", status: "live" },
+  { id: "music", label: "Music", description: "Dreadstache releases and production.", url: "https://dreadstache.com/", status: "live" },
+  { id: "resumes", label: "Résumé Library", description: "Focused, verified career stories.", url: "https://dreadstache.github.io/careeros/generated/resume/", status: "live" },
+];
 const resumeTrackLabels = {
   analytics: "Primary Track",
   gis: "Spatial Track",
@@ -130,6 +137,46 @@ function renderResumeTracks(manifest) {
   if (cards.length > 0) resumeGrid.replaceChildren(...cards);
 }
 
+function renderWorkSwitcher(manifest) {
+  let switcher = document.querySelector(".work-switcher");
+  if (!switcher) {
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+    switcher = document.createElement("details");
+    switcher.className = "work-switcher";
+    switcher.dataset.currentDestination = "tech";
+    const summary = appendText(switcher, "summary", "Explore work ");
+    appendText(summary, "span", "▾").setAttribute("aria-hidden", "true");
+    const menu = document.createElement("div");
+    menu.className = "work-switcher-menu";
+    const intro = document.createElement("p");
+    appendText(intro, "strong", "Luc Cote");
+    appendText(intro, "span", "One practice, several ways in.");
+    menu.append(intro);
+    const links = document.createElement("div");
+    links.className = "work-switcher-links";
+    menu.append(links);
+    switcher.append(menu);
+    header.append(switcher);
+  }
+  const linkRoot = switcher?.querySelector(".work-switcher-links");
+  if (!switcher || !linkRoot || !Array.isArray(manifest.destinations)) return;
+  const currentDestination = switcher.dataset.currentDestination;
+  const links = manifest.destinations
+    .filter(destination => destination.status === "live" && destination.url)
+    .map(destination => {
+      const link = document.createElement("a");
+      link.href = destination.url;
+      if (destination.id === currentDestination) link.setAttribute("aria-current", "page");
+      appendText(link, "strong", destination.label || destination.id);
+      appendText(link, "span", destination.description || "Explore this portfolio.");
+      return link;
+    });
+  if (links.length > 0) linkRoot.replaceChildren(...links);
+}
+
+renderWorkSwitcher({ destinations: fallbackDestinations });
+
 fetch(careerSource, { headers: { Accept: "application/json" } })
   .then(response => {
     if (!response.ok) throw new Error("CareerOS request failed");
@@ -148,4 +195,12 @@ fetch(resumeTrackSource, { cache: "no-store", headers: { Accept: "application/js
     return response.json();
   })
   .then(renderResumeTracks)
+  .catch(() => undefined);
+
+fetch(ecosystemSource, { cache: "no-store", headers: { Accept: "application/json" } })
+  .then(response => {
+    if (!response.ok) throw new Error("CareerOS ecosystem request failed");
+    return response.json();
+  })
+  .then(renderWorkSwitcher)
   .catch(() => undefined);

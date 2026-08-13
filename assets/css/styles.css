@@ -65,6 +65,26 @@ button, a { -webkit-tap-highlight-color: transparent; }
 nav { display: flex; align-items: center; gap: 1rem; }
 nav a { color: var(--muted); text-decoration: none; font-size: .92rem; }
 nav a:hover { color: var(--text); }
+.work-switcher { position: relative; flex: 0 0 auto; }
+.work-switcher summary {
+  display: flex; align-items: center; gap: .45rem; min-height: 2.5rem; padding: .55rem .85rem;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--panel);
+  color: var(--text); cursor: pointer; font-size: .82rem; font-weight: 800; list-style: none;
+}
+.work-switcher summary::-webkit-details-marker { display: none; }
+.work-switcher[open] summary, .work-switcher summary:hover { border-color: var(--accent); }
+.work-switcher-menu {
+  position: absolute; top: calc(100% + .8rem); right: 0; z-index: 80; width: min(24rem, calc(100vw - 2rem));
+  padding: 1rem; border: 1px solid var(--line); border-radius: 1.2rem; background: var(--bg-soft);
+  box-shadow: var(--shadow);
+}
+.work-switcher-menu > p { display: grid; gap: .1rem; margin: 0 0 .7rem; padding: 0 .25rem .7rem; border-bottom: 1px solid var(--line); }
+.work-switcher-menu > p span { color: var(--muted); font-size: .78rem; }
+.work-switcher-links { display: grid; gap: .4rem; }
+.work-switcher-links a { display: grid; gap: .1rem; padding: .7rem .75rem; border-radius: .8rem; text-decoration: none; }
+.work-switcher-links a:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.work-switcher-links a[aria-current="page"] { background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: inset 3px 0 0 var(--accent); }
+.work-switcher-links span { color: var(--muted); font-size: .75rem; line-height: 1.4; }
 .icon-button {
   width: 2.5rem; height: 2.5rem; border-radius: 50%;
   border: 1px solid var(--line); color: var(--text); background: var(--panel);
