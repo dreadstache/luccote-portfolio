@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Lucien Marcel Coté portfolio social card</title>
+  <desc id="description">A midnight portfolio card with teal and violet orbital graphics.</desc>
+  <defs>
+    <radialGradient id="tealGlow" cx="22%" cy="18%" r="70%"><stop offset="0" stop-color="#8ce3d4" stop-opacity=".26"/><stop offset="1" stop-color="#8ce3d4" stop-opacity="0"/></radialGradient>
+    <radialGradient id="violetGlow" cx="86%" cy="10%" r="72%"><stop offset="0" stop-color="#a892ff" stop-opacity=".24"/><stop offset="1" stop-color="#a892ff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8ce3d4"/><stop offset="1" stop-color="#a892ff"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0b0d12"/><rect width="1200" height="630" fill="url(#tealGlow)"/><rect width="1200" height="630" fill="url(#violetGlow)"/>
+  <g fill="none" stroke="#f4f5f7" stroke-opacity=".13"><ellipse cx="925" cy="315" rx="230" ry="116" transform="rotate(-16 925 315)"/><ellipse cx="925" cy="315" rx="148" ry="224" transform="rotate(35 925 315)"/><circle cx="925" cy="315" r="74" stroke="#8ce3d4" stroke-opacity=".28"/></g>
+  <g><circle cx="925" cy="315" r="42" fill="#f4fff9"/><circle cx="754" cy="243" r="12" fill="#8ce3d4"/><circle cx="1059" cy="181" r="9" fill="#a892ff"/><circle cx="1092" cy="378" r="14" fill="#e0a76b"/><circle cx="813" cy="452" r="8" fill="#77b8ff"/></g>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif" fill="#f4f5f7">
+    <circle cx="110" cy="104" r="42" fill="none" stroke="url(#mark)" stroke-width="2"/><text x="110" y="114" text-anchor="middle" font-size="28" font-weight="800">LC</text>
+    <text x="70" y="252" font-size="60" font-weight="800" letter-spacing="-2">Lucien Marcel Coté</text>
+    <text x="73" y="310" font-size="27" font-weight="600" fill="#8ce3d4">Creative Technologist · Multidisciplinary Builder</text>
+    <text x="73" y="388" font-size="22" fill="#aeb6c5">Systems · Games &amp; 3D · Music · Storytelling</text>
+    <text x="73" y="535" font-size="18" font-weight="700" letter-spacing="3" fill="#a892ff">LUCCOTE.COM</text>
+  </g>
+</svg>
