@@ -9,6 +9,7 @@ Repository:
 Upload the CONTENTS of this folder:
 
 - `index.html`
+- `404.html`
 - `assets`
 - `projects`
 - `README.md`
@@ -36,6 +37,10 @@ Your temporary site address will be:
 ## Before connecting luccote.com
 
 Confirm the temporary GitHub Pages address works. Keep Google Sites connected until the GitHub version is verified.
+
+Do not rename `CNAME.example` to `CNAME` until the DNS handoff is ready. Follow
+[`DOMAIN_CUTOVER.md`](DOMAIN_CUTOVER.md) so the GitHub Pages setting, repository metadata,
+and DNS records change in a controlled order.
 
 ## Editing later
 

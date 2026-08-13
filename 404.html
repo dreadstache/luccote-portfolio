@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0b0d12">
+  <title>Page Not Found | Lucien Marcel Coté</title>
+  <script>
+    const projectBase = location.hostname.endsWith("github.io") ? "/luccote-portfolio/" : "/";
+    const siteStyles = document.createElement("link");
+    siteStyles.id = "site-styles";
+    siteStyles.rel = "stylesheet";
+    siteStyles.href = `${projectBase}assets/css/styles.css`;
+    document.head.append(siteStyles);
+    window.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("[data-site-path]").forEach(link => {
+        link.href = `${projectBase}${link.dataset.sitePath}`;
+      });
+    });
+  </script>
+</head>
+<body>
+  <main id="main" class="section error-page">
+    <p class="eyebrow">Lost in orbit</p>
+    <h1>This page drifted beyond the map.</h1>
+    <p class="hero-lede">The work is still here. Choose a clear path back into the portfolio.</p>
+    <div class="button-row">
+      <a class="button primary" data-site-path="" href="/">Return home</a>
+      <a class="button secondary" data-site-path="#work" href="/#work">Explore selected work</a>
+      <a class="button secondary" data-site-path="#resumes" href="/#resumes">Choose a résumé</a>
+    </div>
+  </main>
+</body>
+</html>
