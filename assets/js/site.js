@@ -58,14 +58,14 @@ filterButtons.forEach(button => {
 
 document.querySelector("#year").textContent = new Date().getFullYear();
 
-const careerSource = "https://dreadstache.github.io/careeros/generated/resume/resume.json";
-const resumeTrackSource = "https://dreadstache.github.io/careeros/generated/resume/tracks.json";
-const ecosystemSource = "https://dreadstache.github.io/careeros/generated/ecosystem.json";
+const careerSource = "https://resume.luccote.com/generated/resume/resume.json";
+const resumeTrackSource = "https://resume.luccote.com/generated/resume/tracks.json";
+const ecosystemSource = "https://resume.luccote.com/generated/ecosystem.json";
 const fallbackDestinations = [
-  { id: "tech", label: "Tech & Systems", description: "Analytics, GIS, software, and automation.", url: "https://dreadstache.github.io/luccote-portfolio/", status: "live" },
-  { id: "three-d", label: "Games, Film & 3D", description: "Interactive models and technical art.", url: "https://dreadstache.github.io/dreadstache-portfolio/", status: "live" },
-  { id: "music", label: "Music", description: "Dreadstache releases and production.", url: "https://dreadstache.github.io/dreadstache-music/", status: "live" },
-  { id: "resumes", label: "Résumé Library", description: "Focused, verified career stories.", url: "https://dreadstache.github.io/careeros/generated/resume/", status: "live" },
+  { id: "tech", label: "Tech & Systems", description: "Analytics, GIS, software, and automation.", url: "https://www.luccote.com/", status: "live" },
+  { id: "three-d", label: "Games, Film & 3D", description: "Interactive models and technical art.", url: "https://games.luccote.com/", status: "live" },
+  { id: "music", label: "Music", description: "Dreadstache releases and production.", url: "https://music.luccote.com/", status: "live" },
+  { id: "resumes", label: "Résumé Library", description: "Focused, verified career stories.", url: "https://resume.luccote.com/", status: "live" },
 ];
 const resumeTrackLabels = {
   analytics: "Primary Track",
@@ -133,7 +133,7 @@ function renderResumeTracks(manifest) {
     appendText(content, "h3", track.title.replace(/\s+R[eé]sum[eé]$/i, ""));
     appendText(content, "p", track.summary || track.headline || "A focused view of verified career experience.");
     const link = appendText(card, "a", "View live résumé", "button primary");
-    link.href = `https://dreadstache.github.io/careeros/generated/resume/${encodeURIComponent(track.slug)}/index.html`;
+    link.href = `https://resume.luccote.com/generated/resume/${encodeURIComponent(track.slug)}/index.html`;
     card.prepend(content);
     return card;
   }).filter(Boolean);

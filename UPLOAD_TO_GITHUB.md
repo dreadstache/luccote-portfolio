@@ -30,17 +30,14 @@ Do not upload the outer `Luc_Cote_CareerOS_Web_v1` folder as one nested folder.
 9. Choose `main` and `/ (root)`.
 10. Save.
 
-Your temporary site address will be:
+Your public site address is:
 
-`https://dreadstache.github.io/luccote-portfolio/`
+`https://www.luccote.com/`
 
-## Before connecting luccote.com
+## Domain configuration
 
-Confirm the temporary GitHub Pages address works. Keep Google Sites connected until the GitHub version is verified.
-
-Do not rename `CNAME.example` to `CNAME` until the DNS handoff is ready. Follow
-[`DOMAIN_CUTOVER.md`](DOMAIN_CUTOVER.md) so the GitHub Pages setting, repository metadata,
-and DNS records change in a controlled order.
+The `CNAME` file and DNS cutover are already active. Keep them in place and follow
+[`DOMAIN_CUTOVER.md`](DOMAIN_CUTOVER.md) for the current domain map and rollback notes.
 
 ## Editing later
 
