@@ -12,9 +12,8 @@ The public, multidisciplinary front door for Lucien Marcel Coté's connected bod
 
 ## Live Site
 
-Current GitHub Pages address:
+Canonical public address:
 
-`https://dreadstache.github.io/luccote-portfolio/`
+`https://www.luccote.com/`
 
-The repository is prepared for a future move to `https://www.luccote.com/`. See
-[`DOMAIN_CUTOVER.md`](DOMAIN_CUTOVER.md) for the verified, reversible handoff order.
+See [`DOMAIN_CUTOVER.md`](DOMAIN_CUTOVER.md) for the current domain configuration and rollback notes.
