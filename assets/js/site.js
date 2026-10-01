@@ -97,11 +97,14 @@ function renderCareer(data) {
   const skillsRoot = document.querySelector("#career-skills");
   if (!summary || !experienceRoot || !skillsRoot) return;
 
+  const fallback = document.querySelector("#career-fallback");
+  if (fallback) fallback.hidden = true;
+  summary.hidden = false;
   summary.textContent = data.basics?.summary || "A multidisciplinary career across systems, software, art, and analytics.";
   const activeExperience = (data.experience || []).filter(record => record.status !== "archived");
+  experienceRoot.replaceChildren();
+  skillsRoot.replaceChildren();
   activeExperience
-    .sort((left, right) => String(right.start_date || "").localeCompare(String(left.start_date || "")))
-    .slice(0, 6)
     .forEach(record => {
       const card = document.createElement("article");
       card.className = "career-role";
@@ -110,6 +113,13 @@ function renderCareer(data) {
       appendText(card, "h3", record.position || "Role");
       appendText(card, "p", record.organization || "", "career-organization");
       if (record.summary) appendText(card, "p", record.summary, "career-role-summary");
+      if (record.location) appendText(card, "p", record.location, "career-period");
+      const details = document.createElement("details");
+      appendText(details, "summary", "Role details");
+      const list = document.createElement("ul");
+      (record.highlights || []).forEach(text => appendText(list, "li", text));
+      details.append(list);
+      card.append(details);
       experienceRoot.append(card);
     });
 
@@ -181,12 +191,19 @@ function renderWorkSwitcher(manifest) {
 
 renderWorkSwitcher({ destinations: fallbackDestinations });
 
-fetch(careerSource, { headers: { Accept: "application/json" } })
+fetch(careerSource, { cache: "no-store", headers: { Accept: "application/json" } })
   .then(response => {
     if (!response.ok) throw new Error("CareerOS request failed");
-    return response.json();
+    return response.json().then(data => {
+      if (!data.basics || !Array.isArray(data.experience) || !Array.isArray(data.skills)) throw new Error("Invalid career data");
+      return data;
+    });
   })
   .then(renderCareer)
+  .catch(() => fetch(new URL("../career-data.json", document.querySelector("script[src$='assets/js/site.js']").src), { cache: "no-store" }).then(response => {
+    if (!response.ok) throw new Error("Local career snapshot unavailable");
+    return response.json();
+  }).then(renderCareer))
   .catch(() => {
     document.querySelector("#career-summary")?.setAttribute("hidden", "");
     const fallback = document.querySelector("#career-fallback");
